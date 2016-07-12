@@ -526,9 +526,6 @@ class phpipam_api_client  {
         if($controller!==false) {
             $this->api_server_controller = strtolower($controller);
         }
-        else {
-            $this->exception("Invalid controller $controller");
-        }
     }
 
     /**
@@ -641,10 +638,14 @@ class phpipam_api_client  {
             // Get cURL resource
             $this->Connection = curl_init();
 
+            // set URL
+            if($this->api_server_controller===false)    { $url = $this->api_url.$this->api_app_id."/"; }
+            else                                        { $url = $this->api_url.$this->api_app_id.str_replace("//", "/", "/".$this->api_server_controller."/".$this->api_server_identifiers."/"); }
+
             // set default curl options and params
             curl_setopt_array($this->Connection, array(
                     CURLOPT_RETURNTRANSFER => 1,
-                    CURLOPT_URL => $this->api_url.$this->api_app_id.str_replace("//", "/", "/".$this->api_server_controller."/".$this->api_server_identifiers."/"),
+                    CURLOPT_URL => $url,
                     CURLOPT_HEADER => 0,
                     CURLOPT_VERBOSE => $this->debug,
                     CURLOPT_TIMEOUT => 4,
@@ -717,7 +718,7 @@ class phpipam_api_client  {
                 $this->token_expires = $token[1];
 
                 // is token still valid ?
-                if ($this->token_expires < time()) {
+                if (strlen($this->token)<2 && $this->token_expires < time()) {
                     // initiate authentication
                     $this->curl_authenticate ();
                     //save token to file
