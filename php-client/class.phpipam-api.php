@@ -686,6 +686,9 @@ class phpipam_api_client  {
             // create encrypted request
             $encrypted_request = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->api_key, json_encode($params), MCRYPT_MODE_ECB));
 
+            // escape +
+            $encrypted_request = urlencode($encrypted_request);
+
             // reset url
             curl_setopt($this->Connection, CURLOPT_URL, $this->api_url."?app_id=".$this->api_app_id."&enc_request=".$encrypted_request);
         }
