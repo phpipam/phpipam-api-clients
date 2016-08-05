@@ -547,7 +547,7 @@ class phpipam_api_client  {
                 $this->api_server_identifiers = array();
                 foreach ($identifiers as $cnt=>$i) {
                     if($cnt==0) { $this->api_server_identifiers['id']   = $i; }
-                    else        { $this->api_server_identifiers['id'.$i] = $i; }
+                    else        { $this->api_server_identifiers['id'.($cnt+1)] = $i; }
                 }
 
             }
