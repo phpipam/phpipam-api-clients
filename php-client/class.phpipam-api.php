@@ -538,6 +538,7 @@ class phpipam_api_client  {
      * @return void
      */
     public function set_api_identifiers ($identifiers) {
+        $this->api_server_identifiers = false;         // clear this to forget any previous settings 
         if(is_array($identifiers)) {
             if(sizeof($identifiers)>0 && !$this->api_encrypt) {
                 // reset
