@@ -648,7 +648,7 @@ class phpipam_api_client  {
                     CURLOPT_URL => $url,
                     CURLOPT_HEADER => 0,
                     CURLOPT_VERBOSE => $this->debug,
-                    CURLOPT_TIMEOUT => 4,
+                    CURLOPT_TIMEOUT => 30,
                     CURLOPT_HTTPHEADER => array("Content-Type: application/json"),
                     CURLOPT_USERAGENT => 'phpipam-api php class',
                     // ssl
@@ -839,7 +839,7 @@ class phpipam_api_client  {
                 CURLOPT_URL => $this->api_url.$this->api_app_id."/user/",
                 CURLOPT_HEADER => 0,
                 CURLOPT_VERBOSE => $this->debug,
-                CURLOPT_TIMEOUT => 4,
+                CURLOPT_TIMEOUT => 30,
                 CURLOPT_USERAGENT => 'phpipam-api php class',
                 // ssl
                 CURLOPT_SSL_VERIFYHOST => 0,
