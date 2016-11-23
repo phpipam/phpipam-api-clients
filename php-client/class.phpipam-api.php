@@ -200,6 +200,12 @@ class phpipam_api_client  {
         "message" => ""
     );
 
+    /**
+     * Reponse headers
+     *
+     * @var array
+     */
+    public $response_headers = array ();
 
 
 
@@ -538,7 +544,7 @@ class phpipam_api_client  {
      * @return void
      */
     public function set_api_identifiers ($identifiers) {
-        $this->api_server_identifiers = false;         // clear this to forget any previous settings 
+        $this->api_server_identifiers = false;         // clear this to forget any previous settings
         if(is_array($identifiers)) {
             if(sizeof($identifiers)>0 && !$this->api_encrypt) {
                 // reset
@@ -624,6 +630,8 @@ class phpipam_api_client  {
             // save result
             $this->result = (array) $res;
         }
+        // save reult
+        $this->curl_save_headers ();
     }
 
     /**
@@ -654,7 +662,9 @@ class phpipam_api_client  {
                     CURLOPT_USERAGENT => 'phpipam-api php class',
                     // ssl
                     CURLOPT_SSL_VERIFYHOST => false,
-                    CURLOPT_SSL_VERIFYPEER => false
+                    CURLOPT_SSL_VERIFYPEER => false,
+                    // save headers
+                    CURLINFO_HEADER_OUT => true
                 )
             );
         }
@@ -822,6 +832,17 @@ class phpipam_api_client  {
             // return result object
             return json_decode($resp);
         }
+    }
+
+    /**
+     * Store result code
+     *
+     * @method curl_save_result_code
+     * @return void
+     */
+    private function curl_save_headers () {
+        // save result and result code
+        $this->response_headers = curl_getinfo($this->Connection);
     }
 
     /**
