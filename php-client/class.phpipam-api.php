@@ -643,7 +643,7 @@ class phpipam_api_client  {
      */
     private function curl_set_connection ($token_file) {
         // check if it exists
-        if ($this->Connection!==false) {
+        if ($this->Connection===false) {
             // Get cURL resource
             $this->Connection = curl_init();
 
