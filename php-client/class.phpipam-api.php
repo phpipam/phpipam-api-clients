@@ -77,7 +77,7 @@ class phpipam_api_client  {
      * @var bool
      * @access private
      */
-    private $Connecton = false;
+    private $Connection = false;
 
     /**
      * Access token for phpipam
