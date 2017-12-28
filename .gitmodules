@@ -1,3 +1,6 @@
 [submodule "powershell-client"]
 	path = powershell-client
 	url = https://github.com/yoke88/PSPHPIPAM.git
+[submodule "phpipam-pyclient"]
+	path = phpipam-pyclient
+	url = https://github.com/viniciusarcanjo/phpipam-pyclient.git
