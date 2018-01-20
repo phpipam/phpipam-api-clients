@@ -715,8 +715,8 @@ class phpipam_api_client  {
             $token = @file($token_file);
             // save token
             if(isset($token[0])) {
-                $this->token = $token[0];
-                $this->token_expires = $token[1];
+                $this->token = trim($token[0]);
+                $this->token_expires = trim($token[1]);
 
                 // is token still valid ?
                 if (strlen($this->token)<2 && $this->token_expires < time()) {
