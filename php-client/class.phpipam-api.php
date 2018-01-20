@@ -8,17 +8,7 @@
  */
 class phpipam_api_client  {
 
-    /**
-     * Debug flag for curl
-     *
-     * (default value: false)
-     *
-     * @var bool
-     * @access public
-     */
-    public $debug = false;
-
-    /**
+   /**
      * API server URL
      *
      * (default value: false)
@@ -387,9 +377,7 @@ class phpipam_api_client  {
      * @return void
      */
     public function set_debug ($debug = false) {
-        if(is_bool($debug)) {
-            $this->debug = $debug;
-        }
+	    /* Do nothing. */
     }
 
     /**
@@ -656,7 +644,6 @@ class phpipam_api_client  {
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_URL => $url,
                     CURLOPT_HEADER => 0,
-                    CURLOPT_VERBOSE => $this->debug,
                     CURLOPT_TIMEOUT => 30,
                     CURLOPT_HTTPHEADER => array("Content-Type: application/json"),
                     CURLOPT_USERAGENT => 'phpipam-api php class',
@@ -860,7 +847,6 @@ class phpipam_api_client  {
                 CURLOPT_RETURNTRANSFER => 1,
                 CURLOPT_URL => $this->api_url.$this->api_app_id."/user/",
                 CURLOPT_HEADER => 0,
-                CURLOPT_VERBOSE => $this->debug,
                 CURLOPT_TIMEOUT => 30,
                 CURLOPT_USERAGENT => 'phpipam-api php class',
                 // ssl
