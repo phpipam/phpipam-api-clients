@@ -668,7 +668,10 @@ class phpipam_api_client  {
         // params set ?
         if (is_array($params) && !$this->api_encrypt ) {
             if (sizeof($params)>0) {
-                curl_setopt($this->Connection, CURLOPT_URL, $this->api_url.$this->api_app_id.str_replace("//", "/", "/".$this->api_server_controller."/".$this->api_server_identifiers."/?".http_build_query($params)));
+		if ($this->api_server_method === 'GET')
+                	curl_setopt($this->Connection, CURLOPT_URL, $this->api_url.$this->api_app_id.str_replace("//", "/", "/".$this->api_server_controller."/".$this->api_server_identifiers."/?".http_build_query($params)));
+		else
+			curl_setopt($this->Connection, CURLOPT_POSTFIELDS, json_encode($params));
             }
         }
         // encrypt
