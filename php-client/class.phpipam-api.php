@@ -146,24 +146,24 @@ class phpipam_api_client  {
      * @access public
      */
     public $error_codes = array(
-                // OK
-                200 => "OK",
-                201 => "Created",
-                202 => "Accepted",
-                204 => "No Content",
-                // Client errors
-                400 => "Bad Request",
-                401 => "Unauthorized",
-                403 => "Forbidden",
-                404 => "Not Found",
-                405 => "Method Not Allowed",
-                415 => "Unsupported Media Type",
-                // Server errors
-                500 => "Internal Server Error",
-                501 => "Not Implemented",
-                503 => "Service Unavailable",
-                505 => "HTTP Version Not Supported",
-                511 => "Network Authentication Required"
+        // OK
+        200 => "OK",
+        201 => "Created",
+        202 => "Accepted",
+        204 => "No Content",
+        // Client errors
+        400 => "Bad Request",
+        401 => "Unauthorized",
+        403 => "Forbidden",
+        404 => "Not Found",
+        405 => "Method Not Allowed",
+        415 => "Unsupported Media Type",
+        // Server errors
+        500 => "Internal Server Error",
+        501 => "Not Implemented",
+        503 => "Service Unavailable",
+        505 => "HTTP Version Not Supported",
+        511 => "Network Authentication Required"
     );
 
     /**
@@ -255,15 +255,15 @@ class phpipam_api_client  {
      */
     public function exception ($content) {
         //set result parameters
-    	$this->result = array(
-        	'code'    => 400,
-        	'success' => false,
-        	'message' => $content
-    	);
+        $this->result = array(
+            'code'    => 400,
+            'success' => false,
+            'message' => $content
+        );
         // print result
         $this->print_result ();
-    	// die
-    	die();
+        // die
+        die();
     }
 
     /**
@@ -284,12 +284,12 @@ class phpipam_api_client  {
             return (object) $this->result;
         }
         elseif ($this->result_format=="xml") {
-    		// new SimpleXMLElement object
-    		$xml = new SimpleXMLElement('<'.$_GET['controller'].'/>');
-    		// generate xml from result
-    		$this->array_to_xml($xml, $this->result);
-    		// return XML result
-    		return $xml->asXML();
+            // new SimpleXMLElement object
+            $xml = new SimpleXMLElement('<'.$_GET['controller'].'/>');
+            // generate xml from result
+            $this->array_to_xml($xml, $this->result);
+            // return XML result
+            return $xml->asXML();
         }
     }
 
@@ -311,43 +311,43 @@ class phpipam_api_client  {
             var_dump( (object) $this->result);
         }
         elseif ($this->result_format=="xml") {
-    		// new SimpleXMLElement object
-    		$xml = new SimpleXMLElement('<apiclient/>');
-    		// generate xml from result
-    		$this->array_to_xml($xml, $this->result);
-    		// return XML result
-    		print $xml->asXML();
+            // new SimpleXMLElement object
+            $xml = new SimpleXMLElement('<apiclient/>');
+            // generate xml from result
+            $this->array_to_xml($xml, $this->result);
+            // return XML result
+            print $xml->asXML();
         }
     }
 
-	/**
-	 * Transforms array to XML
-	 *
-	 * @access private
-	 * @param SimpleXMLElement $object
-	 * @param array $data
-	 * @return void
-	 */
-	private function array_to_xml(SimpleXMLElement $object, array $data) {
-		// loop through values
-	    foreach ($data as $key => $value) {
-		    // if spaces exist in key replace them with underscores
-		    if(strpos($key, " ")>0)	{ $key = str_replace(" ", "_", $key); }
+    /**
+     * Transforms array to XML
+     *
+     * @access private
+     * @param SimpleXMLElement $object
+     * @param array $data
+     * @return void
+     */
+    private function array_to_xml(SimpleXMLElement $object, array $data) {
+        // loop through values
+        foreach ($data as $key => $value) {
+            // if spaces exist in key replace them with underscores
+            if(strpos($key, " ")>0)	{ $key = str_replace(" ", "_", $key); }
 
-		    // if key is numeric append item
-		    if(is_numeric($key)) $key = "item".$key;
+            // if key is numeric append item
+            if(is_numeric($key)) $key = "item".$key;
 
-			// if array add child
-	        if (is_array($value)) {
-	            $new_object = $object->addChild($key);
-	            $this->array_to_xml($new_object, $value);
-	        }
-	        // else write value
-	        else {
-	            $object->addChild($key, $value);
-	        }
-	    }
-	}
+            // if array add child
+            if (is_array($value)) {
+                $new_object = $object->addChild($key);
+                $this->array_to_xml($new_object, $value);
+            }
+            // else write value
+            else {
+                $object->addChild($key, $value);
+            }
+        }
+    }
 
     /**
      * Check if all extensions are present
@@ -360,13 +360,13 @@ class phpipam_api_client  {
         $required_ext  = array("openssl", "curl");
         // mcrypt for crypted extensions
         if($this->api_key !== false)
-        $required_ext[] = "mcrypt";
+            $required_ext[] = "mcrypt";
         // json
         if($this->result_format == "json")
-        $required_ext[] = "json";
+            $required_ext[] = "json";
         // xml
         if($this->result_format == "xml")
-        $required_ext[] = "xmlreader";
+            $required_ext[] = "xmlreader";
 
         // Available extensions
         $available_ext = get_loaded_extensions();
@@ -444,13 +444,13 @@ class phpipam_api_client  {
      */
     public function set_api_app_id ($app_id = false) {
         if ($app_id!==false) {
-        	// name must be more than 2 and alphanumberic
-        	if(strlen($app_id)<3 || strlen($app_id)>12 || !ctype_alnum($app_id)) {
-            	$this->exception("Invalid APP id");
-        	}
-        	else {
+            // name must be more than 2 and alphanumberic
+            if(strlen($app_id)<3 || strlen($app_id)>12 || !ctype_alnum($app_id)) {
+                $this->exception("Invalid APP id");
+            }
+            else {
                 $this->api_app_id = $app_id;
-        	}
+            }
         }
         else {
             $this->exception("Invalid APP id");
@@ -617,7 +617,7 @@ class phpipam_api_client  {
                 $this->delete_token_file ($token_file);
                 // auth again
                 $this->curl_add_token_header ($token_file);
-                 // execute
+                // execute
                 $res = $this->curl_execute ();
                 // save result
                 $this->result = (array) $res;
@@ -653,20 +653,20 @@ class phpipam_api_client  {
 
             // set default curl options and params
             curl_setopt_array($this->Connection, array(
-                    CURLOPT_RETURNTRANSFER => 1,
-                    CURLOPT_URL => $url,
-                    CURLOPT_HEADER => 0,
-                    CURLOPT_VERBOSE => $this->debug,
-                    CURLOPT_TIMEOUT => 30,
-                    CURLOPT_HTTPHEADER => array("Content-Type: application/json"),
-                    CURLOPT_USERAGENT => 'phpipam-api php class',
-                    // ssl
-                    CURLOPT_SSL_VERIFYHOST => false,
-                    CURLOPT_SSL_VERIFYPEER => false,
-                    // save headers
-                    CURLINFO_HEADER_OUT => true
-                )
-            );
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL => $url,
+                CURLOPT_HEADER => 0,
+                CURLOPT_VERBOSE => $this->debug,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTPHEADER => array("Content-Type: application/json"),
+                CURLOPT_USERAGENT => 'phpipam-api php class',
+                // ssl
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_SSL_VERIFYPEER => false,
+                // save headers
+                CURLINFO_HEADER_OUT => true
+            )
+        );
         }
     }
 
@@ -681,7 +681,10 @@ class phpipam_api_client  {
         // params set ?
         if (is_array($params) && !$this->api_encrypt ) {
             if (sizeof($params)>0) {
-                curl_setopt($this->Connection, CURLOPT_URL, $this->api_url.$this->api_app_id.str_replace("//", "/", "/".$this->api_server_controller."/".$this->api_server_identifiers."/?".http_build_query($params)));
+                if ($this->api_server_method === 'GET')
+                    curl_setopt($this->Connection, CURLOPT_URL, $this->api_url.$this->api_app_id.str_replace("//", "/", "/".$this->api_server_controller."/".$this->api_server_identifiers."/?".http_build_query($params)));
+                else
+                    curl_setopt($this->Connection, CURLOPT_POSTFIELDS, json_encode($params));
             }
         }
         // encrypt
@@ -728,8 +731,8 @@ class phpipam_api_client  {
             $token = @file($token_file);
             // save token
             if(isset($token[0])) {
-                $this->token = $token[0];
-                $this->token_expires = $token[1];
+                $this->token = trim($token[0]);
+                $this->token_expires = trim($token[1]);
 
                 // is token still valid ?
                 if (strlen($this->token)<2 && $this->token_expires < time()) {
@@ -790,7 +793,7 @@ class phpipam_api_client  {
             fclose($myfile);
         }
         catch ( Exception $e ) {
-             $this->exception("Cannot write file $filename");
+            $this->exception("Cannot write file $filename");
         }
     }
 
@@ -810,7 +813,7 @@ class phpipam_api_client  {
             fclose($myfile);
         }
         catch ( Exception $e ) {
-             $this->exception("Cannot write file $token_file");
+            $this->exception("Cannot write file $token_file");
         }
     }
 
@@ -857,19 +860,22 @@ class phpipam_api_client  {
 
         // set default curl options and params
         curl_setopt_array($c_auth, array(
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL => $this->api_url.$this->api_app_id."/user/",
-                CURLOPT_HEADER => 0,
-                CURLOPT_VERBOSE => $this->debug,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_USERAGENT => 'phpipam-api php class',
-                // ssl
-                CURLOPT_SSL_VERIFYHOST => 0,
-                CURLOPT_SSL_VERIFYPEER => 0,
-                CURLOPT_POST => true,
-                CURLOPT_HTTPHEADER => array('Authorization: Basic '. base64_encode($this->api_username.":".$this->api_password))
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $this->api_url.$this->api_app_id."/user/",
+            CURLOPT_HEADER => 0,
+            CURLOPT_VERBOSE => $this->debug,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_USERAGENT => 'phpipam-api php class',
+            // ssl
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_POST => true,
+            CURLOPT_HTTPHEADER => array(
+                'Content-Length: 0',
+                'Authorization: Basic '. base64_encode($this->api_username.":".$this->api_password)
             )
-        );
+        )
+    );
         // send request and save response
         $resp = curl_exec($c_auth);
 
