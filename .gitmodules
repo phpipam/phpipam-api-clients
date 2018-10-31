@@ -4,3 +4,6 @@
 [submodule "phpipam-pyclient"]
 	path = phpipam-pyclient
 	url = https://github.com/viniciusarcanjo/phpipam-pyclient.git
+[submodule "phpipamsdk"]
+	path = phpipamsdk
+	url = https://github.com/efenian/phpipamsdk.git
