@@ -8,17 +8,7 @@
  */
 class phpipam_api_client  {
 
-    /**
-     * Debug flag for curl
-     *
-     * (default value: false)
-     *
-     * @var bool
-     * @access public
-     */
-    public $debug = false;
-
-    /**
+   /**
      * API server URL
      *
      * (default value: false)
@@ -387,9 +377,7 @@ class phpipam_api_client  {
      * @return void
      */
     public function set_debug ($debug = false) {
-        if(is_bool($debug)) {
-            $this->debug = $debug;
-        }
+	    /* Do nothing. */
     }
 
     /**
@@ -656,7 +644,6 @@ class phpipam_api_client  {
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_URL => $url,
                     CURLOPT_HEADER => 0,
-                    CURLOPT_VERBOSE => $this->debug,
                     CURLOPT_TIMEOUT => 30,
                     CURLOPT_HTTPHEADER => array("Content-Type: application/json"),
                     CURLOPT_USERAGENT => 'phpipam-api php class',
@@ -681,7 +668,10 @@ class phpipam_api_client  {
         // params set ?
         if (is_array($params) && !$this->api_encrypt ) {
             if (sizeof($params)>0) {
-                curl_setopt($this->Connection, CURLOPT_URL, $this->api_url.$this->api_app_id.str_replace("//", "/", "/".$this->api_server_controller."/".$this->api_server_identifiers."/?".http_build_query($params)));
+		if ($this->api_server_method === 'GET')
+                	curl_setopt($this->Connection, CURLOPT_URL, $this->api_url.$this->api_app_id.str_replace("//", "/", "/".$this->api_server_controller."/".$this->api_server_identifiers."/?".http_build_query($params)));
+		else
+			curl_setopt($this->Connection, CURLOPT_POSTFIELDS, json_encode($params));
             }
         }
         // encrypt
@@ -728,8 +718,8 @@ class phpipam_api_client  {
             $token = @file($token_file);
             // save token
             if(isset($token[0])) {
-                $this->token = $token[0];
-                $this->token_expires = $token[1];
+                $this->token = trim($token[0]);
+                $this->token_expires = trim($token[1]);
 
                 // is token still valid ?
                 if (strlen($this->token)<2 && $this->token_expires < time()) {
@@ -860,7 +850,6 @@ class phpipam_api_client  {
                 CURLOPT_RETURNTRANSFER => 1,
                 CURLOPT_URL => $this->api_url.$this->api_app_id."/user/",
                 CURLOPT_HEADER => 0,
-                CURLOPT_VERBOSE => $this->debug,
                 CURLOPT_TIMEOUT => 30,
                 CURLOPT_USERAGENT => 'phpipam-api php class',
                 // ssl
