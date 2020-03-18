@@ -3,7 +3,7 @@
 	url = https://github.com/yoke88/PSPHPIPAM.git
 [submodule "phpipam-pyclient"]
 	path = phpipam-pyclient
-	url = https://github.com/viniciusarcanjo/phpipam-pyclient.git
+	url = https://github.com/viniarck/phpipam-pyclient.git
 [submodule "phpipamsdk"]
 	path = phpipamsdk
 	url = https://github.com/efenian/phpipamsdk.git
