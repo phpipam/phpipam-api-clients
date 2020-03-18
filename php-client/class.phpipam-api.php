@@ -695,7 +695,9 @@ class phpipam_api_client  {
             $params['controller'] = $this->api_server_controller;
 
             // create encrypted request
-            $encrypted_request = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->api_key, json_encode($params), MCRYPT_MODE_ECB));
+            $ivlen = openssl_cipher_iv_length($cipher="AES-128-CBC");
+            $iv = openssl_random_pseudo_bytes($ivlen);
+            $encrypted_request = base64_encode(openssl_encrypt(json_encode($params),$cipher,$this->api_key,$options=OPENSSL_RAW_DATA, $iv));
 
             // escape +
             $encrypted_request = urlencode($encrypted_request);
