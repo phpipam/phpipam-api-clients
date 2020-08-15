@@ -7,6 +7,7 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
 $api_url    = "http://127.0.0.1/api/";     // server url
 $api_app_id = "myapp";                     // application id
 $api_key    = false;                       // api key - only for encrypted methods, otherwise must be false
+$api_encrypt_base64 = false;			   // Use base64 instead of using encrypted methods (Requires PHPIPAM is running on port 443 or HTTPS)
 
 # set username / password for authentication, not needed for encrypted communications
 $api_username = "apiusername";

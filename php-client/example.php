@@ -12,7 +12,7 @@ require("api-config.php");
 require("class.phpipam-api.php");
 
 # init object with settings from
-$API = new phpipam_api_client ($api_url, $api_app_id, $api_key, $api_username, $api_password, $result_format);
+$API = new phpipam_api_client ($api_url, $api_app_id, $api_key, $api_username, $api_password, $result_format, $api_encrypt_base64);
 # debug - only to debug curl
 $API->set_debug (true);
 # execute - result is stored to $API->result, save it to own array if multiple calls needed after execute

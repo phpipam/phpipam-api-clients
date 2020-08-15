@@ -221,7 +221,7 @@ class phpipam_api_client  {
      * @param bool|mixed $password (default: false)
      * @param mixed $result_format (default: "json")
      */
-    public function __construct($api_url = false, $app_id = false, $api_key = false, $username = false, $password = false, $result_format = "json") {
+    public function __construct($api_url = false, $app_id = false, $api_key = false, $username = false, $password = false, $result_format = "json", $api_encrypt_base64 = false) {
         // set app server URL if provided
         if ($api_url!==false) {
             $this->set_api_url ($api_url);
@@ -242,6 +242,10 @@ class phpipam_api_client  {
         if (strlen($result_format)>0) {
             $this->set_result_format ($result_format);
         }
+		// set api crypt base64 over https
+		if($api_encrypt_base64 === true) {
+			$this->api_encrypt_base64 = true;
+		}
         // check for required php extensions
         $this->validate_php_extensions ();
     }
@@ -686,6 +690,24 @@ class phpipam_api_client  {
                 else
                     curl_setopt($this->Connection, CURLOPT_POSTFIELDS, json_encode($params));
             }
+        }
+		// base64 plaintext over HTTPS
+        elseif ($this->api_encrypt && $this->api_encrypt_base64) {
+            // empty
+            if(!is_array($params)) $params = array();
+            if(!is_array($this->api_server_identifiers)) $this->api_server_identifiers = array();
+
+            // join identifiers and parameters
+            $params = array_merge($this->api_server_identifiers, $params);
+            $params['controller'] = $this->api_server_controller;
+
+            // create base64 request
+			$encrypted_request = base64_encode(json_encode($params));
+            // escape +
+            $encrypted_request = urlencode($encrypted_request);
+
+            // reset url
+            curl_setopt($this->Connection, CURLOPT_URL, $this->api_url."?app_id=".$this->api_app_id."&base64&enc_request=".$encrypted_request);
         }
         // encrypt
         elseif ($this->api_encrypt) {
