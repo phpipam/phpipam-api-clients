@@ -7,3 +7,6 @@
 [submodule "phpipamsdk"]
 	path = phpipamsdk
 	url = https://github.com/efenian/phpipamsdk.git
+[submodule "python-phpipam"]
+	path = python-phpipam
+	url = https://github.com/kompetenzbolzen/python-phpipam
