@@ -7,3 +7,9 @@
 [submodule "phpipamsdk"]
 	path = phpipamsdk
 	url = https://github.com/efenian/phpipamsdk.git
+[submodule "phpypam"]
+	path = phpypam
+	url = https://github.com/codeaffen/phpypam.git
+[submodule "phpipam-ansible-modules"]
+	path = phpipam-ansible-modules
+	url = https://github.com/codeaffen/phpipam-ansible-modules.git
