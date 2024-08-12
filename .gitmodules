@@ -16,3 +16,6 @@
 [submodule "phpipam-ansible-modules"]
 	path = phpipam-ansible-modules
 	url = https://github.com/codeaffen/phpipam-ansible-modules.git
+[submodule "phrustpam"]
+	path = phrustpam
+	url = https://github.com/Cabbache/phrustpam
